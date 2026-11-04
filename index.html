@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="telegram-web-app.js"></script>
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>С психологом на ты</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap">
+<style>
+/* Layout: one-screen phone app, 4 tabs at the bottom, lots of white air, burgundy as the single accent */
+:root{--bg:#FBF9F8;--card:#FFFFFF;--fg:#1B1518;--mute:#7C7479;--line:#E8E1E3;--wine:#6E1423;--wine-fg:#FFFFFF;--soft:#F3E9EB;
+--display:'Playfair Display',Georgia,serif;--body:'Onest',system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#130F11;--card:#1C1618;--fg:#F3ECEE;--mute:#A0969B;--line:#2F2629;--wine:#D9566E;--wine-fg:#130F11;--soft:#2A1A1F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#130F11;--card:#1C1618;--fg:#F3ECEE;--mute:#A0969B;--line:#2F2629;--wine:#D9566E;--wine-fg:#130F11;--soft:#2A1A1F;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.5 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 96px}
+.wrap{max-width:560px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+h1{font-size:34px;line-height:1.1}
+h2{font-size:24px;line-height:1.2;margin-bottom:6px}
+h3{font-size:18px;margin-bottom:4px}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--wine);font-weight:600}
+.mute{color:var(--mute);font-size:14px}
+section[hidden]{display:none}
+section{display:flex;flex-direction:column;gap:28px}
+.hero{display:flex;flex-direction:column;gap:14px;padding-top:12px}
+.hero p{font-size:17px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:12px;background:var(--wine);color:var(--wine-fg);font-weight:600;text-decoration:none;text-align:center}
+.btn.ghost{background:transparent;color:var(--wine);border:1.5px solid var(--wine)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.item{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;min-width:0}
+.item>div{min-width:0}
+.item b{font-weight:600;display:block}
+.item span.sub{color:var(--mute);font-size:14px;display:block;margin-top:2px}
+.item .go{flex:none;color:var(--wine);font-weight:600;font-size:14px;padding-top:2px;white-space:nowrap}
+.item:focus-visible,.btn:focus-visible,.chip:focus-visible,.tab:focus-visible{outline:2px solid var(--wine);outline-offset:2px}
+.item:hover b{color:var(--wine)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-right:-16px}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:8px 14px;font:500 14px var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--wine);color:var(--wine-fg);border-color:var(--wine)}
+.group{display:flex;flex-direction:column;gap:6px}
+.lead{background:var(--soft);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.pts{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.dur{font-variant-numeric:tabular-nums}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);display:flex;padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));z-index:5}
+.tab{flex:1;background:none;border:0;color:var(--mute);font:500 12px var(--body);padding:10px 4px;cursor:pointer;border-radius:10px}
+.tab[aria-current="page"]{color:var(--wine);font-weight:600;box-shadow:inset 0 -2px 0 var(--wine);border-radius:0}
+@media (prefers-reduced-motion:no-preference){section{animation:in .25s ease}@keyframes in{from{opacity:.4;transform:translateY(6px)}}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<section id="home">
+  <div class="hero">
+    <span class="eyebrow">Анастасия Маврония · женский психолог</span>
+    <h1>С психологом на ты</h1>
+    <p>Разбираю, почему в отношениях повторяется одно и то же, и что с этим делать. Без утешений и без воды: причина, механизм, шаг.</p>
+    <p class="mute">5 лет практики, больше 2500 часов работы с клиентками. Авторская методика работает с первопричиной, а не с симптомом.</p>
+    <div class="row">
+      <a class="btn" href="https://t.me/MavroniaPsyBot?start=dl-1758254693beac8657e067" target="_blank" rel="noopener">Пройти диагностику</a>
+      <a class="btn ghost" href="#podcasts">Слушать подкасты</a>
+    </div>
+  </div>
+
+  <div class="group">
+    <h2>С чего начать</h2>
+    <p class="mute">Три поста, после которых понятно, как я думаю и работаю.</p>
+    <div class="list">
+      <a class="item" href="https://t.me/mavroniapsy/302" target="_blank" rel="noopener"><div><b>Почему отношения повторяются по одному сценарию</b><span class="sub">Подкаст, 14 минут. Главный вход в тему</span></div><span class="go">Слушать</span></a>
+      <a class="item" href="https://t.me/mavroniapsy/386" target="_blank" rel="noopener"><div><b>Как понять, что включился сценарий</b><span class="sub">Подкаст, 2,5 минуты</span></div><span class="go">Слушать</span></a>
+      <a class="item" href="https://t.me/mavroniapsy/195" target="_blank" rel="noopener"><div><b>Как работают сценарии в отношениях</b><span class="sub">Текст. Самый сохраняемый разбор канала</span></div><span class="go">Читать</span></a>
+    </div>
+  </div>
+
+  <div class="group">
+    <h2>Мой путь</h2>
+    <p class="mute">Как я пришла в психологию и через что прошла сама.</p>
+    <div class="list">
+      <a class="item" href="https://t.me/mavroniapsy/15" target="_blank" rel="noopener"><div><b>Привет тебе, той, кто ищет путь к себе</b><span class="sub">Знакомство: кто я и что здесь происходит</span></div><span class="go">Читать</span></a>
+      <a class="item" href="https://t.me/mavroniapsy/189" target="_blank" rel="noopener"><div><b>Как я пришла в психологию: история борьбы за себя и свою любовь</b><span class="sub">Личная история. Пост с самым большим откликом</span></div><span class="go">Читать</span></a>
+      <a class="item" href="https://t.me/mavroniapsy/198" target="_blank" rel="noopener"><div><b>Как меняются сценарии на глубоком уровне</b><span class="sub">Продолжение истории про мои отношения со свекровью</span></div><span class="go">Читать</span></a>
+      <a class="item" href="https://t.me/mavroniapsy/204" target="_blank" rel="noopener"><div><b>Когда ты последний раз предала себя ради других?</b><span class="sub">Вопрос, после которого многие замолкают</span></div><span class="go">Читать</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="podcasts" hidden>
+  <div class="group">
+    <span class="eyebrow">Подкасты</span>
+    <h2>Психология отношений в аудио</h2>
+    <p class="mute">Выбери тему. Нажми на выпуск, и он откроется в канале.</p>
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Темы"></div>
+  <div class="list" id="plist"></div>
+</section>
+
+<section id="materials" hidden>
+  <div class="group">
+    <span class="eyebrow">Полезное</span>
+    <h2>Бесплатные тесты и статьи</h2>
+    <p class="mute">Пройди тест или прочитай статью, чтобы понять, что происходит именно у тебя.</p>
+  </div>
+  <div class="lead">
+    <h3>Диагностика твоих отношений</h3>
+    <p>Короткий тест в боте. Покажет, на каком этапе ты и где теряется энергия.</p>
+    <a class="btn" href="https://t.me/MavroniaPsyBot?start=dl-1758254693beac8657e067" target="_blank" rel="noopener">Пройти в боте</a>
+  </div>
+  <div class="list">
+    <a class="item" href="https://t.me/questianonbot?start=MavroniaQuestions" target="_blank" rel="noopener"><div><b>Задать анонимный вопрос</b><span class="sub">Разберу твою ситуацию в канале, имя не раскрою</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://t.me/mavroniapsy/426" target="_blank" rel="noopener"><div><b>Запись эфира: почему одни годами ходят в терапию, а у других жизнь меняется за месяцы</b><span class="sub">Рассказываю о методике</span></div><span class="go">Смотреть</span></a>
+  </div>
+  <div class="group">
+    <h2>Самооценка</h2>
+    <p class="mute">Тесты и статьи о том, как ты оцениваешь себя.</p>
+  </div>
+  <div class="list">
+    <a class="item" href="https://mavronia.tilda.ws/page151172986.html" target="_blank" rel="noopener"><div><b>Насколько ты выбираешь себя в отношениях</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/page151172026.html" target="_blank" rel="noopener"><div><b>Тип самооценки</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/page151172566.html" target="_blank" rel="noopener"><div><b>Чьим голосом ты себя оцениваешь</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/page151172786.html" target="_blank" rel="noopener"><div><b>Как проявляется низкая самооценка у тебя</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/123" target="_blank" rel="noopener"><div><b>Что такое самооценка на самом деле</b><span class="sub">Статья</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/page151173096.html" target="_blank" rel="noopener"><div><b>Что стыд делает с твоей самооценкой</b><span class="sub">Статья</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/page151174146.html" target="_blank" rel="noopener"><div><b>Признаки, что твоя самооценка зависит от партнёра</b><span class="sub">Статья</span></div><span class="go">Открыть</span></a>
+  </div>
+  <div class="group">
+    <h2>Отношения</h2>
+    <p class="mute">Разберись, что именно повторяется в твоих отношениях.</p>
+  </div>
+  <div class="list">
+    <a class="item" href="https://mavronia.tilda.ws/page149206226.html" target="_blank" rel="noopener"><div><b>Какой типаж партнёра ты выбираешь снова и снова</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/9876" target="_blank" rel="noopener"><div><b>Тип привязанности</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/page151057756.html" target="_blank" rel="noopener"><div><b>Твоя роль в отношениях</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/57" target="_blank" rel="noopener"><div><b>Что ты пытаешься получить в отношениях</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/page151057406.html" target="_blank" rel="noopener"><div><b>Стадия ваших отношений</b><span class="sub">Тест</span></div><span class="go">Открыть</span></a>
+  </div>
+  <div class="group">
+    <h2>Состояние</h2>
+    <p class="mute">Когда тяжело внутри.</p>
+  </div>
+  <div class="list">
+    <a class="item" href="https://mavronia.tilda.ws/page149933366.html" target="_blank" rel="noopener"><div><b>Депрессия</b><span class="sub">Бесплатно</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/page149899596.html" target="_blank" rel="noopener"><div><b>Заедание и лишний вес</b><span class="sub">Бесплатно</span></div><span class="go">Открыть</span></a>
+    <a class="item" href="https://mavronia.tilda.ws/34" target="_blank" rel="noopener"><div><b>Тревога: откуда берётся, какой у тебя тип и что делать</b><span class="sub">Бесплатно</span></div><span class="go">Открыть</span></a>
+  </div>
+</section>
+
+<section id="projects" hidden>
+  <div class="group">
+    <span class="eyebrow">Проекты</span>
+    <h2>Программы, которые можно пройти в своём темпе</h2>
+    <p class="mute">Двум разным ситуациям подходят две разные программы.</p>
+  </div>
+  <div class="lead">
+    <h3>Выбираю себя</h3>
+    <p>Практикум для тех, кто привык подстраиваться и терять себя в отношениях. Видеоуроки, два прямых эфира и рабочая тетрадь, чтобы вернуть свои желания, границы и право выбирать.</p>
+    <a class="btn" href="https://mavronia.tilda.ws/page151171726.html" target="_blank" rel="noopener">Узнать подробнее</a>
+  </div>
+  <div class="lead">
+    <h3>УЗИ отношений</h3>
+    <p>Курс, который показывает, что на самом деле происходит в твоих отношениях: на какой они стадии, что их держит и куда ведут. 21 урок в 9 модулях и итоговый тест.</p>
+    <a class="btn" href="https://mavronia.tilda.ws/page147104676.html" target="_blank" rel="noopener">Узнать подробнее</a>
+  </div>
+</section>
+
+<section id="work" hidden>
+  <div class="group">
+    <span class="eyebrow">Услуги</span>
+    <h2>Работа со мной</h2>
+    <p class="mute">Если читать мало и нужен разбор именно твоей ситуации.</p>
+  </div>
+  <div class="lead">
+    <span class="eyebrow">Мини-консультация</span>
+    <h3>Разбор одной ситуации за 30 минут</h3>
+    <p>Если тебе нужно понять, что происходит прямо сейчас. Берём одну ситуацию и один запрос и разбираем структурно.</p>
+    <ul class="pts">
+      <li>Что на самом деле происходит.</li>
+      <li>Почему это повторяется и что это поддерживает.</li>
+      <li>Где точка изменения и какой следующий шаг.</li>
+    </ul>
+    <p class="mute">Без универсальных советов: только про твою ситуацию.</p>
+    <a class="btn" href="https://mavronia.tilda.ws/129" target="_blank" rel="noopener">Записаться на разбор</a>
+  </div>
+  <div class="lead">
+    <span class="eyebrow">Авторская консультация</span>
+    <h3>Исследование всей твоей жизни: паттернов, триггеров и сценариев</h3>
+    <p>Это не разговор об одной ситуации. Мы смотрим на твою жизнь целиком и находим первопричину, из-за которой история повторяется, а не очередное следствие.</p>
+    <ul class="pts">
+      <li>Диагностика всех сфер: отношения, самооценка, семья, деньги, состояние.</li>
+      <li>Какие сценарии и паттерны управляют твоими выборами, и откуда они взялись.</li>
+      <li>Какие триггеры включают реакции, которые ты потом не можешь объяснить.</li>
+      <li>От полутора до трёх часов работы лично с тобой.</li>
+    </ul>
+    <p><b>Что получишь:</b> полный психологический портрет и маршрут работы. Ты поймёшь, что менять, в каком порядке и какой формат дальше подойдёт именно тебе.</p>
+    <p class="mute">Подходит, если поверхностные ответы уже не работают, а в отношениях и жизни повторяется один и тот же сценарий.</p>
+    <a class="btn" href="https://mavronia.tilda.ws/page147222166.html" target="_blank" rel="noopener">Записаться на консультацию</a>
+  </div>
+  <div class="list">
+    <a class="item" href="https://mavronia.tilda.ws/page147574766.html" target="_blank" rel="noopener"><div><b>Краткосрочная терапия</b><span class="sub">Глубокая работа с причинами, с поддержкой между встречами</span></div><span class="go">Подробнее</span></a>
+    <a class="item" href="https://t.me/+AiClei3dpAM5MjUy" target="_blank" rel="noopener"><div><b>Отзывы</b><span class="sub">Что говорят клиентки</span></div><span class="go">Читать</span></a>
+  </div>
+  <div class="group">
+    <h3>Написать мне</h3>
+    <p class="mute">В личные сообщения, куда тебе удобнее.</p>
+    <div class="row">
+      <a class="btn" href="https://telegram.me/Mavronia" target="_blank" rel="noopener">Telegram</a>
+      <a class="btn" href="https://wa.me/79383050553" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn" href="https://max.ru/u/f9LHodD0cOJpHbjTsmC4Zv8Qu7g5WDokTFazn4Adfu0LcHjwWyaVXzHJvag" target="_blank" rel="noopener">Max</a>
+      <a class="btn ghost" href="https://instagram.com/mavronia.psycholog" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<nav aria-label="Разделы">
+  <button class="tab" data-t="home">Главная</button>
+  <button class="tab" data-t="podcasts">Подкасты</button>
+  <button class="tab" data-t="materials">Полезное</button>
+  <button class="tab" data-t="projects">Проекты</button>
+  <button class="tab" data-t="work">Услуги</button>
+</nav>
+
+<script>
+var B='https://t.me/mavroniapsy/';
+/* [id поста, тема, название, длительность, пометка] */
+var P=[
+ [474,'Разборы историй','Он появляется раз в месяц, ничего не даёт, но ты залипла','','Текстовый разбор'],
+ [510,'Разборы историй','Почему мужчины рядом с тобой пропадают или не становятся мужчинами','','Текстовый разбор'],
+ [466,'Разборы историй','Он исчез именно тогда, когда ты сказала о своих чувствах','','Текстовый разбор'],
+ [302,'Сценарии','Почему отношения повторяются по одному и тому же сценарию','14:34','Начни с него'],
+ [386,'Сценарии','Как распознать, что у тебя включился сценарий','2:33',''],
+ [352,'Сценарии','Почему сценарии сильнее логики','3:50',''],
+ [396,'Сценарии','Почему ты выбираешь партнёров, при которых теряешь себя','7:01',''],
+ [392,'Семья','Мамины фразы, которые незаметно управляют твоими отношениями','1:38',''],
+ [215,'Семья','Почему ты повторяешь сценарий родителей, даже если «всё нормально»','1:46',''],
+ [376,'Отношения','Почему исчезающие мужчины притягиваются именно к тебе','6:52',''],
+ [320,'Отношения','Отношения с женатым мужчиной: почему остаёшься второй','11:34','Разбор подписчицы'],
+ [666,'Отношения','Его мама для него номер один','2:07',''],
+ [482,'Отношения','Почему ярлык «он нарцисс» не решает проблему','3:42',''],
+ [185,'Отношения','Если парень запрещает одеваться и общаться','7:15','Разбор подписчицы'],
+ [286,'Отношения','Он не хочет жениться, а мне тревожно. Часть 1','4:42','Разбор в трёх частях'],
+ [287,'Отношения','Он не хочет жениться, а мне тревожно. Часть 2','4:16',''],
+ [288,'Отношения','Он не хочет жениться, а мне тревожно. Часть 3','4:17',''],
+ [295,'Потеря себя','Растворяюсь в партнёре: это любовь или зависимость? Часть 1','10:16','Разбор подписчицы'],
+ [296,'Потеря себя','Растворяюсь в партнёре: это любовь или зависимость? Часть 2','4:09',''],
+ [310,'Потеря себя','Чувствую себя пустой и выжатой для всех: как не потерять себя, семью и время на ребёнка','15:08','Разбор подписчицы'],
+ [354,'Потеря себя','После развода ушла в работу, внутри пустота','6:07','Разбор подписчицы'],
+ [242,'Потеря себя','Личные границы: на что ты готова соглашаться и терпеть','2:04',''],
+ [190,'Потеря себя','Причинно-следственные связи зависимостей: алкоголь, заедание, курение','3:12',''],
+ [237,'Потеря себя','Разбор диагностики подписчицы','5:11',''],
+ [12,'Потеря себя','Внутренний баланс','8:28',''],
+ [13,'Потеря себя','Удобная женщина, часть 1','2:16',''],
+ [16,'Потеря себя','Хорошая девочка, часть 2','5:12',''],
+ [17,'Потеря себя','Почему мы не даём себе право на отдых и чувствуем вину','11:06',''],
+ [18,'Потеря себя','Как стыд своего тела мешает наслаждаться жизнью и сексом','6:23',''],
+ [19,'Отношения','Ты меня не понимаешь: как научиться понимать партнёра','10:42',''],
+ [20,'Семья','Программа «нельзя»: откуда запреты и как с ними работать','3:26',''],
+ [21,'Отношения','Почему мало сексуальных женщин','6:33',''],
+ [22,'Семья','Тревожная мама и гиперконтроль','5:57',''],
+ [23,'Семья','Я не чувствую своего ребёнка','8:18',''],
+ [24,'Семья','Психологическое наследство: родовые программы','8:35',''],
+ [26,'Семья','Причина выкидыша и последствия аборта в семье','2:38',''],
+ [27,'Семья','Хотели мальчика, а родилась девочка','6:31',''],
+ [34,'Отношения','Здоровые отношения и созависимые','4:22',''],
+ [35,'Отношения','Сепарация и отношения с партнёром','7:42',''],
+ [36,'Отношения','Хочу развестись: что делать дальше. Часть 1','4:47',''],
+ [37,'Отношения','Хочу развестись. Часть 2: партнёр как зеркало','5:29','']
+];
+var topics=['Все'];P.forEach(function(p){if(topics.indexOf(p[1])<0)topics.push(p[1])});
+var cur='Все',chips=document.getElementById('chips'),plist=document.getElementById('plist');
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function draw(){
+  chips.innerHTML=topics.map(function(t){return '<button class="chip" aria-pressed="'+(t===cur)+'" data-c="'+esc(t)+'">'+esc(t)+'</button>'}).join('');
+  plist.innerHTML=P.filter(function(p){return cur==='Все'||p[1]===cur}).map(function(p){
+    return '<a class="item" href="'+B+p[0]+'" target="_blank" rel="noopener"><div><b>'+esc(p[2])+'</b><span class="sub">'+(p[3]?'<span class="dur">'+p[3]+'</span>':'')+(p[3]&&p[4]?' · ':'')+esc(p[4])+'</span></div><span class="go">'+(p[3]?'Слушать':'Читать')+'</span></a>'}).join('');
+}
+chips.addEventListener('click',function(e){var c=e.target.closest('.chip');if(c){cur=c.dataset.c;draw()}});
+var ids=['home','podcasts','materials','projects','work'];
+function show(){
+  var h=(location.hash||'#home').slice(1);if(ids.indexOf(h)<0)h='home';
+  ids.forEach(function(i){document.getElementById(i).hidden=i!==h});
+  document.querySelectorAll('.tab').forEach(function(t){if(t.dataset.t===h)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current')});
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){location.hash=t.dataset.t})});
+window.addEventListener('hashchange',show);
+draw();show();
+</script>
+
+<script>try{var tg=window.Telegram&&Telegram.WebApp;if(tg){tg.ready();tg.expand()}}catch(e){}</script>
+</body>
+</html>
