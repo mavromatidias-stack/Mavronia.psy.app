@@ -216,6 +216,7 @@ nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px s
   </div>
 </section>
 
+<p class="mute" id="dbg" style="margin-top:32px;text-align:center;font-size:12px">версия 4</p>
 </div>
 
 <nav aria-label="Разделы">
@@ -293,6 +294,34 @@ window.addEventListener('hashchange',show);
 draw();show();
 </script>
 
-<script>try{var tg=window.Telegram&&Telegram.WebApp;if(tg){tg.ready();tg.expand()}}catch(e){}</script>
+<script>
+try{
+  var tg=window.Telegram&&Telegram.WebApp;
+  var dbg=document.getElementById('dbg');
+  function say(t){try{dbg.textContent='версия 4 · '+t}catch(e){}}
+  if(tg){
+    tg.ready();tg.expand();
+    say('Telegram '+tg.version+', '+tg.platform);
+    document.addEventListener('click',function(e){
+      var a=e.target.closest&&e.target.closest('a[href]');
+      if(!a)return;
+      var url=a.getAttribute('href');
+      if(/^https?:\/\/(t\.me|telegram\.me)\//i.test(url)){
+        e.preventDefault();
+        url=url.replace(/^https?:\/\/telegram\.me\//i,'https://t.me/');
+        say('нажата ссылка '+url.replace('https://',''));
+        try{tg.openTelegramLink(url)}catch(err){
+          say('ошибка openTelegramLink: '+err);
+          try{tg.openLink(url)}catch(err2){location.href=url}
+        }
+        setTimeout(function(){try{tg.close()}catch(err){}},600);
+      }else if(/^https?:\/\//i.test(url)){
+        e.preventDefault();
+        tg.openLink(url);
+      }
+    });
+  }else{say('открыто вне Telegram')}
+}catch(e){try{document.getElementById('dbg').textContent='версия 4 · ошибка: '+e}catch(x){}}
+</script>
 </body>
 </html>
